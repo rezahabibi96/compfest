@@ -1,0 +1,9 @@
+pyyaml
+orator
+fastapi
+hashids
+uvicorn
+colorlog
+psycopg2
+pydantic
+python-multipart
