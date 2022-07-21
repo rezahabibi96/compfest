@@ -1,4 +1,4 @@
-env: "development"
+env: "production"
 apps:
   title: "API using fastAPI"
   version: "1.0.0"
