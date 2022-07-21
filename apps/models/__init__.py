@@ -1,4 +1,4 @@
-from orator import DatabaseManager, Model
+from orator import DatabaseManager, Model, Schema
 from apps.helper import Config, Log
 
 
@@ -10,12 +10,14 @@ conf = {
         'database': database.db,
         'user': database.username,
         'password': database.password,
+        'port': database.port,
         'prefix': ''
     }
 }
 
+
 db = DatabaseManager(conf)
+schema = Schema(db)
+
+
 Model.set_connection_resolver(db)
-
-
-Log.warn('db loaded')
