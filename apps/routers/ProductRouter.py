@@ -33,6 +33,6 @@ async def checkout(response: Response, product_id: int):
 async def create_product(response:Response, name: str=Form(..., example='name'), 
                          price: int=Form(..., example=1000), desc: str=Form(..., example='desc'),
                          file:UploadFile=File(...)):
-    result = await product.create_product(name=name, price=price, desc=desc, file=file)
+    result = product.create_product(name=name, price=price, desc=desc, file=file)
     response.status_code = result.status
     return result

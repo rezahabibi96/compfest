@@ -2,11 +2,15 @@ import os
 from time import time
 from datetime import datetime
 from uuid import uuid4
-from fastapi import File, UploadFile
-from apps.helper import Log
+from boto3 import client
+from fastapi import UploadFile, File
+from apps.helper import Log, Config
 from apps.models.ProductModel import Product
 from apps.schemas import BaseResponse
-from apps.schemas.SchemaProduct import RequestProduct, ResponseProduct, ListProduct
+from apps.schemas.SchemaProduct import ResponseProduct, ListProduct, RequestProduct
+
+
+storage = Config.PARAMS.STORAGE
 
 
 class ControllerBalance(object):
@@ -71,13 +75,41 @@ class ControllerBalance(object):
         return result
 
     @classmethod
-    async def create_product(cls, name, price, desc, file:UploadFile):
+    def create_product(cls, name, price, desc, file:UploadFile):
+        result = BaseResponse()
+        result.status = 400
+
+        try:
+            s3 = client('s3', aws_access_key_id=storage.key, aws_secret_access_key=storage.secret)
+            
+            filename = f"{int(time())}_{uuid4()}.jpg" 
+            s3.upload_fileobj(file.file, storage.bucket, filename)
+
+            imagepath = f"https://s3-bucket-compfest.s3.ap-southeast-1.amazonaws.com/{filename}"
+            timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%SZ")
+
+            data = Product(name=name, price=price, desc=desc,
+                           imagepath=imagepath, timestamp=timestamp)
+            data.save()
+
+            result.message = 'success'
+            result.data = ResponseProduct(**data.serialize())
+            result.status = 200
+        except Exception as e:
+            Log.error(e)
+            result.status = 400
+            result.message = str(e)
+        
+        return result
+
+    @classmethod
+    async def create_product_local_legacy(cls, name, price, desc, file:UploadFile):
         result = BaseResponse()
         result.status = 400
 
         try:
             dirpath = f"{os.getcwd()}/assets/images"
-            filename = f"{time()}_{uuid4()}.jpg"
+            filename = f"{int(datetime.timestamp())}_{uuid4()}.jpg"
             
             data = Product(name=name, price=price, desc=desc,
                            imagepath=filename, timestamp=str(datetime.now()))
