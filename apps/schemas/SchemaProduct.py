@@ -1,5 +1,6 @@
+from typing import List
+from datetime import datetime
 from pydantic import BaseModel
-from typing import Optional, List
 
 
 class RequestProduct(BaseModel):
@@ -14,7 +15,7 @@ class ResponseProduct(BaseModel):
     price: str = None
     desc: str = None
     imagepath: str = None
-    timestamp: str = None
+    timestamp: datetime = None
 
 
 class ListProduct(BaseModel):

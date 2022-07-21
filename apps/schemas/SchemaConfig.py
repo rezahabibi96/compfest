@@ -2,6 +2,11 @@ from typing import List, Dict
 from pydantic import BaseModel
 
 
+class S3(BaseModel):
+    key: str =''
+    secret: str =''
+    bucket: str=''
+
 class Postgres(BaseModel):
     host: str =''
     port: int = None
@@ -23,3 +28,4 @@ class ConfigApps(BaseModel):
     DATABASE: Postgres
     TOKEN: List[str]  = []
     SALT: Salt
+    STORAGE: S3
