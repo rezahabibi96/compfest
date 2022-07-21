@@ -34,6 +34,7 @@ class Config:
     @classmethod
     def load(cls):
         config = open(cls.__file_config__, "r")
+        cls.__config__yaml__ = None
         
         if yaml.load(config, Loader=Loader)['env'] == 'production':
             cls.__config__yaml__ = yaml.load(os.environ['CONFIG'])
@@ -42,7 +43,7 @@ class Config:
         
         else:
             cls.__config__yaml__ = yaml.load(config, Loader=Loader)
-        
+        Log.debug('####')
         Log.debug(cls.__config_yaml__)
         
         Log.info("load config/config.yaml config !")
