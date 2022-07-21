@@ -35,6 +35,10 @@ class Config:
     def load(cls):
         config = open(cls.__file_config__, "r")
         cls.__config_yaml__ = yaml.load(config, Loader=Loader)
+        
+        if cls.__config_yaml__['env'] == 'production':
+            cls.__config__yaml__ = yaml.safe_load(os.environ['CONFIG'])
+
         Log.info("load config/config.yaml config !")
 
         cls.PARAMS = ConfigApps(
@@ -42,6 +46,7 @@ class Config:
             INFORMATION=cls.__config_yaml__["apps"],
             ALLOWED_HOSTS=cls.__config_yaml__["allowed_hosts"],
             ALLOWED_METHODS=cls.__config_yaml__["allowed_methods"],
+            STORAGE=cls.__config_yaml__["storage"][cls.__config_yaml__['env']],
             DATABASE=cls.__config_yaml__["database"][cls.__config_yaml__['env']],
             TOKEN=cls.__config_yaml__["token"][cls.__config_yaml__['env']],
             SALT=cls.__config_yaml__["salt"][cls.__config_yaml__['env']]

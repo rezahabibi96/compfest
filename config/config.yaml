@@ -12,6 +12,8 @@ apps:
       description: "localhost"
     - url: "http://172.31.29.136:8001"
       description: "wsl"
+    - url: "https://app-compfest.herokuapp.com"
+      description: "heroku"
       
 allowed_hosts:
   - "localhost"
@@ -24,6 +26,20 @@ allowed_methods:
   - "POST"
   - "PUT"
   - "OPTIONS"
+
+storage:
+  development:
+    key: ""
+    secret: ""
+    bucket: ""
+  staging:
+    key: ""
+    secret: ""
+    bucket: ""
+  production:
+    key: ""
+    secret: ""
+    bucket: ""
 
 database:
   development:
