@@ -38,6 +38,9 @@ class Config:
         
         if cls.__config_yaml__['env'] == 'production':
             cls.__config__yaml__ = yaml.safe_load(os.environ['CONFIG'])
+            Log.debug('!!!!')
+        
+        Log.debug(cls.__config_yaml__)
 
         Log.info("load config/config.yaml config !")
 
