@@ -36,10 +36,12 @@ class Config:
         config = open(cls.__file_config__, "r")
         
         if yaml.load(config, Loader=Loader)['env'] == 'production':
-            cls.__config__yaml__ = yaml.safe_load(os.environ['CONFIG'])
+            cls.__config__yaml__ = yaml.load(os.environ['CONFIG'])
+            Log.debug('!!!!')
+            Log.debug(cls.__config__yaml__)
         
         else:
-            cls.__config__yaml__ =yaml.load(config, Loader=Loader)
+            cls.__config__yaml__ = yaml.load(config, Loader=Loader)
         
         Log.debug(cls.__config_yaml__)
         
