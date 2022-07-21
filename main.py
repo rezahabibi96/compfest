@@ -29,7 +29,7 @@ async def custom_swagger_ui_html():
     if PARAMS.ENVIRONMENT == 'development':
         openapi_url = app.openapi_url
     elif PARAMS.ENVIRONMENT in ['staging', 'production']:
-        openapi_url = f"/neon/{app.openapi_url}"
+        openapi_url = f"{app.openapi_url}"
     return get_swagger_ui_html(
         openapi_url=openapi_url,
         title=app.title,
