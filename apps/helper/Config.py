@@ -34,14 +34,12 @@ class Config:
     @classmethod
     def load(cls):
         config = open(cls.__file_config__, "r")
+        tmp = yaml.load(config, Loader=Loader)
         
-        if yaml.load(config, Loader=Loader)['env'] == 'production':
+        if tmp['env'] == 'production':
             cls.__config_yaml__ = yaml.load(os.environ['CONFIG'])
-        
         else:
-            cls.__config_yaml__ = yaml.load(config, Loader=Loader)
-        
-        Log.debug(cls.__config_yaml__)
+            cls.__config_yaml__ = tmp
         
         Log.info("load config/config.yaml config !")
 
