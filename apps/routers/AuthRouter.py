@@ -17,7 +17,7 @@ example_input = json.dumps({
 async def signup(response: Response, input_data=Body(..., example=example_input)):
     result = auth.signup(input_data=input_data)
     response.status_code = result.status
-    return result.data
+    return result
 
 @router.post("/login")
 async def login(response: Response, input_data: OAuth2PasswordRequestForm= Depends()):
