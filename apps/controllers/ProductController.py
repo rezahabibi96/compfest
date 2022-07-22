@@ -42,7 +42,7 @@ class ControllerBalance(object):
             if data:
                 result.data = ResponseProduct(**data.serialize())
             else:
-                result.data = []
+                result.data = {}
             result.message = 'success'
             result.status = 200  
             Log.info(result.message)

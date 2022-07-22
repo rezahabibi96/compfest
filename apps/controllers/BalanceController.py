@@ -35,7 +35,6 @@ class ControllerBalance(object):
             else:
                 e = "amount must not be empty!"
                 Log.error(e)
-                result.status = 403
                 result.message = str(e)
         except Exception as e:
             Log.error(e)
@@ -69,7 +68,6 @@ class ControllerBalance(object):
             else:
                 e = "amount must not be empty!"
                 Log.error(e)
-                result.status = 403
                 result.message = str(e)
         except Exception as e:
             Log.error(e)
