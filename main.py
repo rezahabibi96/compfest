@@ -5,7 +5,8 @@ from fastapi.openapi.docs import get_swagger_ui_html, get_swagger_ui_oauth2_redi
 from fastapi.staticfiles import StaticFiles
 from apps.helper import Config, Log
 from apps.helper.Util import verify_token
-from apps.routers import InformationRouter, BalanceRouter, ProductRouter
+from apps.services.AuthServices import AuthService
+from apps.routers import InformationRouter, BalanceRouter, ProductRouter, AuthRouter
 
 
 PARAMS = Config.PARAMS
@@ -53,4 +54,10 @@ app.include_router(
 app.include_router(
     ProductRouter.router,
     tags=["Product"],
+    dependencies=[Depends(AuthService.verify_token)]
+)
+
+app.include_router(
+    AuthRouter.router,
+    tags=["Auth"],
 )
