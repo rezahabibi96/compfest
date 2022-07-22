@@ -1,2 +1,2 @@
 from .Logger import Log
-from .ConfigHelper import Config
+from .Config import Config

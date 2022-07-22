@@ -57,12 +57,12 @@ database:
     db: ""
     optn: ""
   production:
-    host: ""
-    port: 
-    username: ""
-    password: ""
-    db: ""
-    optn: ""
+    host: "localhost"
+    port: 5432
+    username: "postgres"
+    password: "postgres"
+    db: "postgres"
+    optn: "public"
 
 token:
   production:
