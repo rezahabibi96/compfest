@@ -1,7 +1,7 @@
 from orator.migrations import Migration
 
 
-class CreatBalancesTable(Migration):
+class CreateBalancesTable(Migration):
 
     def up(self):
         """

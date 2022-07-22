@@ -1,7 +1,7 @@
 from orator.migrations import Migration
 
 
-class CreatUsersTable(Migration):
+class CreateUsersTable(Migration):
 
     def up(self):
         """
